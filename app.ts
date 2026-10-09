@@ -92,7 +92,7 @@ function loadPosts(userId: number): void {
             });
 
             postsMessageEl.className = "message success";
-            postsMessageEl.textContent = "Posts loaded.";
+            postsMessageEl.textContent = posts.length + " posts loaded for this user.";
         })
         .catch(function () {
             postsMessageEl.className = "message error";
