@@ -100,10 +100,29 @@ function loadPosts(userId: number): void {
         });
 }
 
-// TODO 3: Validate the form, create a NewPost object, and POST it.
+// Validate the form before sending a post.
 function submitNewPost(event: Event): void {
     event.preventDefault();
-    resultBox.textContent = "TODO: Submit a new post here.";
+    resultBox.className = "result-box";
+
+    const userId: number = Number(userSelect.value);
+    const title: string = titleInput.value.trim();
+    const body: string = bodyInput.value.trim();
+
+    if (userId <= 0) {
+        resultBox.className = "result-box error";
+        resultBox.textContent = "Please select a user first.";
+        return;
+    }
+
+    if (title.length === 0 || body.length === 0) {
+        resultBox.className = "result-box error";
+        resultBox.textContent = "Title and message are required.";
+        return;
+    }
+
+    resultBox.className = "result-box success";
+    resultBox.textContent = "Form is valid.";
 }
 
 document.getElementById("loadUsersButton")!.addEventListener("click", loadUsers);
