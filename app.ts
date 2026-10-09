@@ -29,9 +29,36 @@ const resultBox = document.getElementById("resultBox") as HTMLDivElement;
 const titleInput = document.getElementById("titleInput") as HTMLInputElement;
 const bodyInput = document.getElementById("bodyInput") as HTMLTextAreaElement;
 
-// TODO 1: Fetch users from JSONPlaceholder and add one <option> per user.
+// Fetch users and fill the dropdown.
 function loadUsers(): void {
-    userMessage.textContent = "TODO: Load users here.";
+    userMessage.className = "message";
+    userMessage.textContent = "Loading users...";
+    userSelect.innerHTML = '<option value="">-- Select a user --</option>';
+
+    fetch("https://jsonplaceholder.typicode.com/users")
+        .then(function (response: Response) {
+            if (!response.ok) {
+                throw new Error("User request failed.");
+            }
+            return response.json();
+        })
+        .then(function (data: unknown) {
+            const users: User[] = data as User[];
+
+            users.forEach(function (user: User) {
+                const option = document.createElement("option");
+                option.value = String(user.id);
+                option.textContent = user.name + " (" + user.email + ")";
+                userSelect.appendChild(option);
+            });
+
+            userMessage.className = "message success";
+            userMessage.textContent = users.length + " users loaded.";
+        })
+        .catch(function () {
+            userMessage.className = "message error";
+            userMessage.textContent = "Unable to load users.";
+        });
 }
 
 // TODO 2: Fetch posts for the selected user and create DOM elements for them.
