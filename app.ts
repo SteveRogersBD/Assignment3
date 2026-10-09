@@ -61,9 +61,43 @@ function loadUsers(): void {
         });
 }
 
-// TODO 2: Fetch posts for the selected user and create DOM elements for them.
+// Fetch posts for one user and display them.
 function loadPosts(userId: number): void {
-    postsMessageEl.textContent = "TODO: Load posts for user " + userId;
+    postsMessageEl.className = "message";
+    postsMessageEl.textContent = "Loading posts...";
+    postList.innerHTML = "";
+
+    fetch("https://jsonplaceholder.typicode.com/posts?userId=" + userId)
+        .then(function (response: Response) {
+            if (!response.ok) {
+                throw new Error("Post request failed.");
+            }
+            return response.json();
+        })
+        .then(function (data: unknown) {
+            const posts: Post[] = data as Post[];
+
+            posts.forEach(function (post: Post) {
+                const postCard = document.createElement("article");
+                const postTitle = document.createElement("h3");
+                const postBody = document.createElement("p");
+
+                postCard.className = "post-card";
+                postTitle.textContent = post.title;
+                postBody.textContent = post.body;
+
+                postCard.appendChild(postTitle);
+                postCard.appendChild(postBody);
+                postList.appendChild(postCard);
+            });
+
+            postsMessageEl.className = "message success";
+            postsMessageEl.textContent = "Posts loaded.";
+        })
+        .catch(function () {
+            postsMessageEl.className = "message error";
+            postsMessageEl.textContent = "Unable to load posts.";
+        });
 }
 
 // TODO 3: Validate the form, create a NewPost object, and POST it.
