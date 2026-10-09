@@ -121,8 +121,60 @@ function submitNewPost(event: Event): void {
         return;
     }
 
-    resultBox.className = "result-box success";
-    resultBox.textContent = "Form is valid.";
+    const newPost: NewPost = {
+        userId: userId,
+        title: title,
+        body: body
+    };
+
+    resultBox.className = "result-box";
+    resultBox.textContent = "Submitting post...";
+
+    fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newPost)
+    })
+        .then(function (response: Response) {
+            if (!response.ok) {
+                throw new Error("Post submission failed.");
+            }
+            return response.json();
+        })
+        .then(function (data: unknown) {
+            const returnedPost: Post = data as Post;
+            const selectedUser = userSelect.options[userSelect.selectedIndex].textContent;
+
+            resultBox.className = "result-box success";
+            resultBox.innerHTML = "";
+
+            const heading = document.createElement("strong");
+            heading.textContent = "Post submitted successfully.";
+
+            const idLine = document.createElement("p");
+            idLine.textContent = "Returned ID: " + returnedPost.id;
+
+            const userLine = document.createElement("p");
+            userLine.textContent = "Selected user: " + (selectedUser || "Unknown user");
+
+            const titleLine = document.createElement("p");
+            titleLine.textContent = "Title: " + returnedPost.title;
+
+            const bodyLine = document.createElement("p");
+            bodyLine.textContent = "Message: " + returnedPost.body;
+
+            resultBox.appendChild(heading);
+            resultBox.appendChild(idLine);
+            resultBox.appendChild(userLine);
+            resultBox.appendChild(titleLine);
+            resultBox.appendChild(bodyLine);
+        })
+        .catch(function () {
+            resultBox.className = "result-box error";
+            resultBox.textContent = "Unable to submit the post.";
+        });
 }
 
 document.getElementById("loadUsersButton")!.addEventListener("click", loadUsers);
