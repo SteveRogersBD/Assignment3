@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #cccccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+input, textarea, select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 9px 15px;
+    margin: 8px 6px 8px 0;
+    cursor: pointer;
+}
+
+.post-card {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+.message {
+    font-weight: bold;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.success {
+    border: 2px solid green;
+}
+
+.result-box {
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid #dddddd;
+    min-height: 30px;
+}

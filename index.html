@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Mission Board</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <main class="container">
+        <h1>Mini Mission Board</h1>
+        <p class="subtitle">Assignment 3 Starter</p>
+
+        <section class="card">
+            <h2>1. Users</h2>
+            <button id="loadUsersButton">Load Users</button>
+            <label for="userSelect">Choose a user:</label>
+            <select id="userSelect">
+                <option value="">-- Select a user --</option>
+            </select>
+            <button id="loadPostsButton">Load Posts</button>
+            <p id="userMessage" class="message"></p>
+        </section>
+
+        <section class="card">
+            <h2>2. Posts</h2>
+            <div id="postList"></div>
+            <p id="postMessage" class="message"></p>
+        </section>
+
+        <section class="card">
+            <h2>3. Create a New Mission / Post</h2>
+            <form id="postForm">
+                <label for="titleInput">Title:</label>
+                <input type="text" id="titleInput">
+
+                <label for="bodyInput">Message:</label>
+                <textarea id="bodyInput" rows="5"></textarea>
+
+                <button type="submit">Submit Post</button>
+            </form>
+            <div id="resultBox" class="result-box"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
